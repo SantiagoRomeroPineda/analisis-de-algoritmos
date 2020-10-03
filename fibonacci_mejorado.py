@@ -13,4 +13,17 @@ def fib (n, lista=[0,1]):
     for i in range(2,n+1):
             lista.append(lista[i-1]+lista[i-2])
     return lista[n]
-print(fib(5))
+print(fib(22))
+
+def fibonacci(n,antepenultimo=0, penultimo=1):
+    if n<2:
+        return n
+    ultimo= 0
+    for i in range(0,n+1):
+        ultimo = antepenultimo+ultimo
+        antepenultimo=penultimo
+        penultimo=ultimo
+    return ultimo
+print(fibonacci(22)) 
+        
+        
