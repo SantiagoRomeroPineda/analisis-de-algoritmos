@@ -1,10 +1,9 @@
-def posi(suma, numeroSumar,n):
+def posi(n,suma=0, numeroSumar=0):
   suma+=numeroSumar
   if suma > n:
     return 0
   if suma ==n:
-    print(suma)
     return 1
-  return posi(suma,1,n) +posi(suma,3,n) + posi(suma,4,n)
+  return posi(n,suma,1) +posi(n,suma,3) + posi(n,suma,4)
 
-print(posi(0,0,7))
+print(posi(7))
