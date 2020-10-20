@@ -1,3 +1,4 @@
+import numpy
 def subconjunto(arreglo):
     suma=sum(arreglo)
     K=suma//2
@@ -16,11 +17,11 @@ def subconjunto(arreglo):
 
                 matriz[i][j] = matriz[i - 1][j] or matriz[i - 1][j - arreglo[i - 1]]
 
-
+    print(numpy.array(matriz))
     return matriz[tam][K]
 
 
-arreglo = [2, 1, 1, 1, 3, 2]
+arreglo = [2, 3, 1, 1, 1]
 print(subconjunto(arreglo))
 
 

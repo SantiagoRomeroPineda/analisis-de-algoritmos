@@ -1,7 +1,7 @@
 /**
  * 
  */
-package co.edu.javeriana.algoritmos.proyecto;
+package co.edu.javeriana.algoritmos.proyecto.pandemia;
 
 /**
  * La implementación que se utilizará dentro del robot la suministraré yo, pero es buena idea

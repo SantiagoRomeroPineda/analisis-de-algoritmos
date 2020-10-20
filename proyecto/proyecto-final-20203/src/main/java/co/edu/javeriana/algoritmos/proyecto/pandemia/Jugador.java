@@ -1,7 +1,7 @@
 /**
  * 
  */
-package co.edu.javeriana.algoritmos.proyecto;
+package co.edu.javeriana.algoritmos.proyecto.pandemia;
 
 import java.util.List;
 

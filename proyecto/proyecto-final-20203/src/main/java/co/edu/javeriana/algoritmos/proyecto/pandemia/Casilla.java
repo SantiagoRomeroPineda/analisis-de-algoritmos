@@ -1,7 +1,8 @@
 /**
  * 
  */
-package co.edu.javeriana.algoritmos.proyecto;
+package co.edu.javeriana.algoritmos.proyecto.pandemia;
+
 
 /**
  * Clase que representa una jugada.  Prohibido modificar, cambiar de paquete o definir en otro paquete.
@@ -9,6 +10,9 @@ package co.edu.javeriana.algoritmos.proyecto;
  */
 public class Casilla 
 {
+	
+
+	
     private int fila;
     private int columna;
     
