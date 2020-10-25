@@ -8,7 +8,7 @@ package co.edu.javeriana.algoritmos.proyecto.pandemia;
  * que ustedes generen la suya para probar.
  * Prohibido modificar, cambiar de paquete o definir en otro paquete.
  */
-public interface Tablero extends Cloneable {
+public interface TableroI extends Cloneable {
 
     /**
      * Efectúa una jugada sobre el tablero.

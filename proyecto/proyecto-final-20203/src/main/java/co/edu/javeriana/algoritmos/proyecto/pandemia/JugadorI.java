@@ -10,7 +10,7 @@ import java.util.List;
  * sin parámetros que no lance excepciones.
  * Prohibido modificar, cambiar de paquete o definir en otro paquete.
  */
-public interface Jugador {
+public interface JugadorI {
 
     /**
      * Recibe el tablero y retorna la mejor lista de jugadas posible.
@@ -18,13 +18,9 @@ public interface Jugador {
      * @param tablero Tablero para jugar
      * @return Lista de jugadas a realizar en el tablero
      */
-    List<Casilla> jugar( Tablero tablero );
+    List<Casilla> jugar( TableroI tablero );
     
-    /**
-     * 
-     * @return una cadena que sirva para identificar a su jugador.  Sólo se permiten letras y números, la presencia de otros caracteres
-     * en esta cadena, o una cadena vacía o nula, pueden ser causal de descalificación.
-     */
+    
     String identificacionJugador();
     
 }
