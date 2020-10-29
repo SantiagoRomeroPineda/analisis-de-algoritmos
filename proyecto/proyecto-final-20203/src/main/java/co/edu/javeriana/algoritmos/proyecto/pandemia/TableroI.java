@@ -8,6 +8,7 @@ package co.edu.javeriana.algoritmos.proyecto.pandemia;
  * que ustedes generen la suya para probar.
  * Prohibido modificar, cambiar de paquete o definir en otro paquete.
  */
+
 public interface TableroI extends Cloneable {
 
     /**
@@ -19,6 +20,9 @@ public interface TableroI extends Cloneable {
      */
     int efectuarJugada( Casilla jugada ) throws IllegalArgumentException;
     
+    int [][] getTablero() throws IllegalArgumentException;
+    
+    void imprimirTablero() throws IllegalArgumentException;
     /**
      * Simula una jugada sobre el tablero sin cambiarlo.
      * 
@@ -28,6 +32,7 @@ public interface TableroI extends Cloneable {
      */
     int simularJugada( Casilla jugada ) throws IllegalArgumentException;
 	
+    void eliminarSubconjunto(int fila, int columna) throws IllegalArgumentException;
     /**
      * 
      * @return el número de colores que tiene el juego.
@@ -51,5 +56,11 @@ public interface TableroI extends Cloneable {
      * @return una matriz con todos los colores.  Las casillas vacías tienen valor -1.
      */
     int[][] coloresTablero();
+    
+    
+    
+    
+    
+    
     
 }
