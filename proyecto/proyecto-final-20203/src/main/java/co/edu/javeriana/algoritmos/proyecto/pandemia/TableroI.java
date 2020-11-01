@@ -22,6 +22,10 @@ public interface TableroI extends Cloneable {
     
     int [][] getTablero() throws IllegalArgumentException;
     
+    void eliminarCasillas(int y, int x, int color) throws IllegalArgumentException;
+    boolean bajarCasillas() throws IllegalArgumentException;
+    void moverCasillasIzquierda() throws IllegalArgumentException;
+    
     void imprimirTablero() throws IllegalArgumentException;
     /**
      * Simula una jugada sobre el tablero sin cambiarlo.
@@ -31,8 +35,6 @@ public interface TableroI extends Cloneable {
      * @throws IllegalArgumentException si la jugada no es válida
      */
     int simularJugada( Casilla jugada ) throws IllegalArgumentException;
-	
-    void eliminarSubconjunto(int fila, int columna) throws IllegalArgumentException;
     /**
      * 
      * @return el número de colores que tiene el juego.

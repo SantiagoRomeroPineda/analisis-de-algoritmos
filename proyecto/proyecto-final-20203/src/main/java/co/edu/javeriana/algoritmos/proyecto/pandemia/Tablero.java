@@ -30,25 +30,102 @@ public class Tablero implements TableroI {
 		System.out.println(this.dificultad);
 		for (int x=0; x < filas; x++) {
 			for (int y=0; y < columnas; y++) {
-				System.out.print(this.tablero[x][y]+" ");
+				System.out.print(this.tablero[x][y]+"  ");
 			}
 			System.out.println();
 		}
 	}
 	
 	
-	public void eliminarSubconjunto(int fila, int columna) throws IllegalArgumentException{
-		System.out.print("");
-	}
+
 	
 	public int [][] getTablero() throws IllegalArgumentException {
 		return this.tablero;
 		
 	}
+	
+	@Override
+	public void eliminarCasillas(int y, int x, int color) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		int [] moverX= {-1,0,0,1}; 
+		int [] moverY= {0,1,-1,0};
+		this.tablero[y][x]=0;
+		//System.out.println(color);
+		
+		for(int i =0;i<4;i++) {
+			boolean a=(x+moverX[i])!=getColumnas();
+			boolean b=(x+moverX[i])!=-1;
+			boolean c=(y+moverY[i])!=getFilas();
+			boolean d=(y+moverY[i])!=-1;
+			if(a && b && c && d) {
+				
+				
+				int ySig=y+moverY[i];
+				int xSig=x+moverX[i];
+				//System.out.println("y= " + ySig);
+				//System.out.println("x = " + xSig);
+				if(this.tablero[ySig][xSig]==color) {
+					this.eliminarCasillas(ySig, xSig,color);
+				}
+				
+				
+			}
+		}
+	}
 
 	@Override
-	public int efectuarJugada(Casilla jugada) throws IllegalArgumentException {
+	public boolean bajarCasillas() throws IllegalArgumentException {
 		// TODO Auto-generated method stub
+		boolean columnaVacia=false;
+		for (int j = 0; j < this.getColumnas(); j++){
+			int descuento=0;
+			for(int i=this.getFilas()-1;i>=0;i--) {
+				this.tablero[i+descuento][j]=this.tablero[i][j];
+				if(this.tablero[i][j]==0) {
+					descuento++;
+				}
+				if(i<= descuento-1) {
+					this.tablero[i][j]=0;
+				}
+			}
+			if(descuento==this.getFilas())
+				columnaVacia=true;
+		}
+		return columnaVacia;
+	}
+
+	@Override
+	public void moverCasillasIzquierda() throws IllegalArgumentException {
+		int posiMover=this.getColumnas()+1;
+		int casillasAmover=0;
+		for(int i =this.getFilas()-1;i>=0;i--) {
+			for(int j=0;j<this.getColumnas();j++) {
+				if(i==this.getFilas()-1) {
+					if(this.tablero[i][j]==0) {
+						casillasAmover++;
+						if(j<posiMover) {
+							posiMover=j;
+						}
+					}	
+				}
+				if(j>posiMover) {
+					this.tablero[i][j-casillasAmover]=this.tablero[i][j];
+					this.tablero[i][j]=0;
+				}
+			}
+		}
+		
+		
+	}
+	
+	@Override
+	public int efectuarJugada(Casilla jugada) throws IllegalArgumentException {
+		int y=jugada.getColumna();
+		int x=jugada.getFila();
+		this.eliminarCasillas(y, x, this.colorCasilla(y, x));
+		if (bajarCasillas()) {
+			this.moverCasillasIzquierda();
+		}
 		return 0;
 	}
 
@@ -79,7 +156,7 @@ public class Tablero implements TableroI {
 	@Override
 	public int colorCasilla(int i, int j) {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.tablero[i][j];
 	}
 
 	@Override
@@ -87,5 +164,7 @@ public class Tablero implements TableroI {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }
