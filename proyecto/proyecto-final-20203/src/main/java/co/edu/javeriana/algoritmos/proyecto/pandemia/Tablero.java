@@ -27,10 +27,16 @@ public class Tablero implements TableroI {
 		
 	}
 	public void imprimirTablero()throws IllegalArgumentException {
-		System.out.println(this.dificultad);
+		System.out.println();
 		for (int x=0; x < filas; x++) {
 			for (int y=0; y < columnas; y++) {
-				System.out.print(this.tablero[x][y]+"  ");
+				if (this.tablero[x][y]==0) {
+					System.out.print("-  ");
+				}
+				else {
+					System.out.print(this.tablero[x][y]+"  ");
+				}
+				
 			}
 			System.out.println();
 		}
@@ -114,11 +120,24 @@ public class Tablero implements TableroI {
 				}
 			}
 		}
-		
+		this.columnas-=casillasAmover;
 		
 	}
 	
+	
+	
 	@Override
+	public void efectuarJugada(int i, int j) throws IllegalArgumentException {
+		
+		this.eliminarCasillas(i, j, this.colorCasilla(i, j));
+		
+		if (this.bajarCasillas()) {
+			this.moverCasillasIzquierda();
+		}
+		System.out.println("Ha sido eliminada");
+		
+	}
+	
 	public int efectuarJugada(Casilla jugada) throws IllegalArgumentException {
 		int y=jugada.getColumna();
 		int x=jugada.getFila();
@@ -164,6 +183,8 @@ public class Tablero implements TableroI {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 
 

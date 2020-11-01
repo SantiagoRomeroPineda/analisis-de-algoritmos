@@ -1,6 +1,12 @@
 package co.edu.javeriana.algoritmos.proyecto.pandemia;
 
+import java.security.KeyStore.Entry;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Jugador implements JugadorI {
 
@@ -17,7 +23,128 @@ public class Jugador implements JugadorI {
 	 */
 	@Override
 	public List<Casilla> jugar(TableroI tablero){
-		return null;
+		int contador=0;
+		boolean seguirJugando=true;
+		List<Casilla> jugadas = new ArrayList<Casilla>();
+		List<Integer> principales = new ArrayList<Integer>();
+		
+		HashMap<Integer, Integer[]> mapa = new HashMap<Integer, Integer[]>();
+		tablero.imprimirTablero();
+		while(seguirJugando) {
+			boolean realizaJugada=false;
+			int filas= tablero.getFilas();
+			int columnas = tablero.getColumnas();
+			for(int i = 0;i<filas && !realizaJugada ;i++) {
+				for(int j=columnas-1;j>=0 && !realizaJugada;j--) {
+					if(tablero.colorCasilla(i, j)!=0)
+					{
+						if(!mapa.containsKey(tablero.colorCasilla(i, j))) {
+							System.out.println("ingresa al mapa: "+ tablero.colorCasilla(i, j));
+							mapa.put(tablero.colorCasilla(i, j), new Integer[] {-1, -1});
+							principales.add(tablero.colorCasilla(i, j));
+						}
+						Casilla casilla= new Casilla(i, j);
+						int [] moverX= {-1,0}; 
+						int [] moverY= {0,1};
+						
+						//Integer valorPrincipal = -1;
+						//Set<Integer> keys = mapa.keySet();
+//						for (Iterator l = keys.iterator(); l.hasNext(); ) {
+//				          int key = (int) l.next();
+//				          //System.out.println("llave "+key+ " coordenadas = "+mapa.get(key)[0]);
+//				          valorPrincipal=key; 
+//						}
+						//System.out.println();
+//						System.out.println("valor principal = "+ valorPrincipal);
+//						System.out.println("color casilla = "+ tablero.colorCasilla(i, j));
+						if (mapa.get(tablero.colorCasilla(i, j))[0]==-1) {
+							for(int k =0;k<2;k++) {
+								int ySig=i+moverY[k];
+								int xSig=j+moverX[k];
+//								System.out.println("i siguiente = "+ySig);
+//								System.out.println("j siguiente = "+xSig);
+								boolean a=(xSig)!=-1;
+								boolean b=(ySig)!=filas;
+								if( a && b) {
+									if (tablero.colorCasilla(ySig, xSig)==tablero.colorCasilla(i, j)) {
+										if(principales.get(0)==tablero.colorCasilla(ySig, xSig)) {
+											System.out.println("valor principal = "+ principales.get(0));
+
+											System.out.println("realiza jugada");
+											System.out.println("fila: "+ casilla.getFila()+" columna: "+ casilla.getColumna());
+											System.out.println("color: "+tablero.colorCasilla(i, j) );
+											tablero.efectuarJugada(i,j);
+											realizaJugada=true;
+											tablero.imprimirTablero();
+											jugadas.add(casilla);
+										}
+										else {
+											if(tablero.colorCasilla(i,j)!=0) {
+												System.out.println("jugada no prioritaria: "+tablero.colorCasilla(i,j));
+												mapa.put(tablero.colorCasilla(i,j), new Integer[] {i, j});
+											}
+											
+										}
+									}
+									
+								}
+								
+							}
+						}
+					}
+				}
+			}
+
+			contador++;
+			if(!realizaJugada){
+				Set<Integer> keys = mapa.keySet();
+				for (Iterator l = keys.iterator(); l.hasNext(); ) {
+		          int key = (int) l.next();
+		          System.out.println("llave "+key+ " coordenadas = "+mapa.get(key)[0]+ " "+ mapa.get(key)[1]);
+		         
+				}
+				System.out.println();
+				for(int i=0;i<principales.size();++i) {
+					if(mapa.get(principales.get(i))[0]!=-1) {
+		            	System.out.println("realiza jugada");
+		            	System.out.println("el color del arreglo: "+principales.get(i));
+						System.out.println("fila: "+ mapa.get(principales.get(i))[0]+" columna: "+ mapa.get(principales.get(i))[1]);
+						System.out.println("color: "+tablero.colorCasilla(mapa.get(principales.get(i))[0], mapa.get(principales.get(i))[1]) );
+		            	tablero.efectuarJugada(mapa.get(principales.get(i))[0],mapa.get(principales.get(i))[1]);
+		            	realizaJugada=true;
+		            	tablero.imprimirTablero();
+		            	Casilla casilla= new Casilla(mapa.get(principales.get(i))[0],mapa.get(principales.get(i))[1]);
+		            	jugadas.add(casilla);
+					}
+					mapa.put(principales.get(i),  new Integer[] {-1, -1} );
+
+				}
+
+				
+					
+			}
+			else {
+				Set<Integer> keys = mapa.keySet();
+				for (Iterator l = keys.iterator(); l.hasNext(); ) {
+		          int key = (int) l.next();
+		          System.out.println("llave "+key+ " coordenadas = "+mapa.get(key)[0]+ " "+ mapa.get(key)[1]);
+		         
+				}
+				System.out.println();
+				for(int i=0;i<principales.size();++i) {
+					mapa.put(principales.get(i),  new Integer[] {-1, -1} );
+					
+				}
+
+				if(contador==13) {
+					break;
+				}
+			}
+			if(!realizaJugada) {
+				seguirJugando=false;
+			}
+		}
+		return jugadas;
 	}
 //	public List<Casilla> jugar(TableroI tablero) {
 //		// TODO Auto-generated method stub
