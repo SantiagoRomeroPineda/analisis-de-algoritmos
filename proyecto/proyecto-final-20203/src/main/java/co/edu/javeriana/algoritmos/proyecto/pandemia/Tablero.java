@@ -7,6 +7,7 @@ public class Tablero implements TableroI {
 	private static int filas;
 	private static int columnas;
 	private static int dificultad;
+
 	
 	public Tablero(int filas, int columnas, int dificultad) {
 		super();
@@ -83,6 +84,8 @@ public class Tablero implements TableroI {
 	public boolean bajarCasillas() throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		boolean columnaVacia=false;
+		
+		
 		for (int j = 0; j < this.getColumnas(); j++){
 			int descuento=0;
 			for(int i=this.getFilas()-1;i>=0;i--) {
@@ -104,24 +107,36 @@ public class Tablero implements TableroI {
 	public void moverCasillasIzquierda() throws IllegalArgumentException {
 		int posiMover=this.getColumnas()+1;
 		int casillasAmover=0;
-
+		boolean vacias=false;
+		boolean llenas= false;
 		for(int i =this.getFilas()-1;i>=0;i--) {
 			for(int j=0;j<this.getColumnas();j++) {
 				if(i==this.getFilas()-1) {
 					if(this.tablero[i][j]==0) {
-						casillasAmover++;
+						if (llenas==false) {
+							vacias =true;
+							casillasAmover++;
+						}
 						
 						if(j<posiMover) {
+							
 							posiMover=j;
 						}
 					}	
 				}
 				else {
-					casillasAmover=0;
+				
+					if (vacias==true) {
+						llenas =true;
+					}
 				}
 				if(j>posiMover) {
-					this.tablero[i][j-casillasAmover]=this.tablero[i][j];
-					this.tablero[i][j]=0;
+					//System.out.println("estooo: "+ (j-casillasAmover));
+					if(j-casillasAmover >0) {
+						this.tablero[i][j-casillasAmover]=this.tablero[i][j];
+						this.tablero[i][j]=0;
+					}
+					
 				}
 			}
 		}
