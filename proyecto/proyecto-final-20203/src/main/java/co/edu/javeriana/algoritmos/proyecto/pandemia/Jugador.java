@@ -105,7 +105,7 @@ public class Jugador implements JugadorI {
 				}
 				System.out.println();
 				for(int i=0;i<principales.size();++i) {
-					if(mapa.get(principales.get(i))[0]!=-1) {
+					if(mapa.get(principales.get(i))[0]!=-1 && (tablero.colorCasilla(mapa.get(principales.get(i))[0], mapa.get(principales.get(i))[1])!=0 )) {
 		            	System.out.println("realiza jugada");
 		            	System.out.println("el color del arreglo: "+principales.get(i));
 						System.out.println("fila: "+ mapa.get(principales.get(i))[0]+" columna: "+ mapa.get(principales.get(i))[1]);
@@ -136,7 +136,7 @@ public class Jugador implements JugadorI {
 					
 				}
 
-				if(contador==13) {
+				if(contador==20) {
 					break;
 				}
 			}
