@@ -104,8 +104,7 @@ public class Tablero implements TableroI {
 	public void moverCasillasIzquierda() throws IllegalArgumentException {
 		int posiMover=this.getColumnas()+1;
 		int casillasAmover=0;
-		boolean marca1=false;
-		boolean marca2=false;
+
 		for(int i =this.getFilas()-1;i>=0;i--) {
 			for(int j=0;j<this.getColumnas();j++) {
 				if(i==this.getFilas()-1) {
