@@ -177,7 +177,6 @@ class Graph:
                 if self.matrix[u][v] > 0 and mstSet[v] == False and key[v] > self.matrix[u][v]: 
                         key[v] = self.matrix[u][v] 
                         parent[v] = u 
-  
         return parent
     def Kruskal(self):
         pass
