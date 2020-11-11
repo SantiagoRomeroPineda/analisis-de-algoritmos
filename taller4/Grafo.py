@@ -43,7 +43,6 @@ class Graph:
         while len(stack)!=0:
             self.vertices[stack[-1]].mark=True
             value=stack[-1]
-            
             for i in self.edges[value].keys():
                 if not self.vertices[i].mark:
                     print(value," -> ",i)
@@ -54,9 +53,22 @@ class Graph:
                     stack.pop()
         return output
 
-    def BFS(self):
+    def BFS(self,v):
         self.restartVertices()
-        
+        queue = [v]
+        output = [v]
+        while len(queue)!=0:
+            self.vertices[queue[0]].mark=True
+            value=queue[0]
+            queue.pop(0)
+            for i in self.edges[value].keys():
+                if not i in queue:
+                    if self.vertices[i].mark==False:
+                        queue.append(i)
+                        print(value," -> ",i)
+                        output.append(i)
+        return output
+
 
     def dijkstra(self):
         pass
@@ -92,19 +104,9 @@ vertice = Vertice(4,"pepe")
 print(grafo.edges)
 (grafo.vertex_neighbours(1))
 (grafo.edgeCost(1,2))
-grafo.DFS(2)
-
-
-
- 
-#    def DFSUtil(self, v): 
-#         self.vertices[v].marca = True
-
-#         for i in self.graph[v]: 
-#             if visited[i] == False: 
-#                 self.DFSUtil(i, visited) 
-
-        
+print(grafo.DFS(2))
+print(grafo.BFS(2))
+   
 
 
         
