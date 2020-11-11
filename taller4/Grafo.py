@@ -10,6 +10,7 @@ class Graph:
         self.vertices={}
         self.edges={}
         self.matrix=[]
+        self.adjacency_list=[]
 
     def addVertex(self,v):
         if v.id in self.edges.keys():
@@ -46,6 +47,8 @@ class Graph:
             self.edges[v1].update({v2:weigth})
             self.edges[v2].update({v1:weigth})
             self.connectionMatrix(v1,v2,weigth)
+            self.adjacency_list.append([v1,v2, weigth])
+            self.adjacency_list.append([v2,v1, weigth])
             return True
         return False
 
@@ -112,7 +115,7 @@ class Graph:
         distances[src-1] = 0
         marked = [False] * nVertices
    
-        for i in range(nVertices): 
+        for _ in range(nVertices): 
             u = self.minDistance(distances, marked) 
             marked[u] = True 
             for v in range(nVertices): 
@@ -120,8 +123,29 @@ class Graph:
                     distances[v] = distances[u] + self.matrix[u][v] 
         return distances 
 
-    def bellman_Ford(self):
-        pass
+
+            
+    def bellmanFord(self, src):  
+        nVertices=len(self.vertices)
+        distances = [math.inf] * nVertices  
+        distances[src-1] = 0
+
+        for _ in range(nVertices - 1):    
+            for v1, v2, weigth in self.adjacency_list:  
+                if distances[v1-1] != math.inf and distances[v1-1] + weigth < distances[v2-1]:  
+                        distances[v2-1] = distances[v1-1] + weigth  
+  
+
+        for v1, v2, weigth in self.adjacency_list:  
+                if distances[v1-1] != math.inf and distances[v1-1] + weigth < distances[v2-1]:  
+                        print("Graph contains negative weight cycle") 
+                        return
+                          
+        return distances
+
+
+
+
     def prim(self):
         pass
     def Kruskal(self):
@@ -155,6 +179,7 @@ print(grafo.DFS(2))
 print(grafo.BFS(2))
 grafo.printMatrix()
 print(grafo.dijkstra(2))
+grafo.bellmanFord(2)
 
    
 
