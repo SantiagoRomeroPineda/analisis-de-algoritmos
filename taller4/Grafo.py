@@ -15,6 +15,10 @@ class Graph:
         self.edges[v.id]={}
         return True
     
+    def restartVertices(self):
+        for i in self.vertices.keys():
+            self.vertices[i].mark=False
+
     def connection(self,v1,v2, weigth=0):
         if (v1 in self.edges.keys() and v2 in self.edges.keys() ):
             if  v2 in self.edges[v1].keys():
@@ -33,25 +37,26 @@ class Graph:
         return self.edges[v1].get(v2)
 
     def DFS(self, v):
-        for i in self.vertices.keys():
-            self.vertices[i].mark=False
-        stack = [v]        
+        self.restartVertices()
+        stack = [v]
+        output =[v]        
         while len(stack)!=0:
             self.vertices[stack[-1]].mark=True
             value=stack[-1]
+            
             for i in self.edges[value].keys():
                 if not self.vertices[i].mark:
                     print(value," -> ",i)
+                    output.append(i)
                     stack.append(i)
                     break
                 else:
                     stack.pop()
-                
-                    
+        return output
 
-
-    def busquedaAnchura(self):
-        pass
+    def BFS(self):
+        self.restartVertices()
+        
 
     def dijkstra(self):
         pass
