@@ -148,8 +148,6 @@ class Graph:
             print (parent[i]+1, "-", i+1, "\t", self.matrix[i][ parent[i] ] )
 
     def minKey(self, key, mstSet): 
-  
-        # Initilaize min value 
         min = math.inf
   
         for v in range(len(self.vertices)): 
@@ -158,8 +156,7 @@ class Graph:
                 min_index = v 
         return min_index 
   
-    # Function to construct and print MST for a graph  
-    # represented using adjacency matrix representation 
+
     def prim(self): 
         nVertices=len(self.vertices)
         key = [math.inf] * nVertices
@@ -178,15 +175,43 @@ class Graph:
                         key[v] = self.matrix[u][v] 
                         parent[v] = u 
         return parent
-    def Kruskal(self):
-        pass
+
+    def find(self, parent, i):
+        if parent[i] == i:
+            return i
+        return self.find(parent, parent[i])
+
+    def union(self, parent, rank, x, y):
+        xroot = self.find(parent, x)
+        yroot = self.find(parent, y)
+        if rank[xroot] < rank[yroot]:
+            parent[xroot] = yroot
+        elif rank[xroot] > rank[yroot]:
+            parent[yroot] = xroot
+        else:
+            parent[yroot] = xroot
+            rank[xroot] += 1
+
+    def kruskal(self):
+        result = []
+        i, e = 0, 0
+        self.adjacency_list = sorted(self.adjacency_list, key=lambda item: item[2])
+        parent = []
+        rank = []
+        for node in range(len(self.vertices)):
+            parent.append(node)
+            rank.append(0)
+        while e < len(self.vertices) - 1:
+            u, v, w = self.adjacency_list[i]
+            i = i + 1
+            x = self.find(parent, u-1)
+            y = self.find(parent, v-1)
+            if x != y:
+                e = e + 1
+                result.append([u, v, w])
+                self.union(parent, rank, x, y)
+        return result
                 
-                
-
-
-    
-        
-
             
 
 vertice = Vertice(1,12)
@@ -211,6 +236,7 @@ grafo.printMatrix()
 print(grafo.dijkstra(2))
 print(grafo.bellmanFord(2))
 grafo.printPrim(grafo.prim()) 
+print(grafo.kruskal())
 
    
 
