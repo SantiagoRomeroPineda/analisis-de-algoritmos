@@ -38,7 +38,17 @@ class Graph:
     #         for i in 
 
 
+    def busquedaAnchura(self):
+        pass
 
+    def dijkstra(self):
+        pass
+    def bellman_Ford(self):
+        pass
+    def prim(self):
+        pass
+    def Kruskal(self):
+        pass
                 
                 
 
@@ -64,17 +74,7 @@ print(grafo.edgeCost(1,2))
 
 
 
-#     abc.abstractclassmethod
-#     def veinosDeVertice(self, vertice):
-#         pass
-#     abc.abstractclassmethod
-#     def costoArista(self):
-#         pass
-#     abc.abstractclassmethod
-#     def DFS(self, vertice):
-#         for i in self.vertices:
-#             i.marca=False
-        
+ 
 #    def DFSUtil(self, v): 
 #         self.vertices[v].marca = True
 
@@ -83,21 +83,7 @@ print(grafo.edgeCost(1,2))
 #                 self.DFSUtil(i, visited) 
 
         
-#     abc.abstractclassmethod
-#     def busquedaAnchura(self):
-#         pass
-#     abc.abstractclassmethod
-#     def dijkstra(self):
-#         pass
-#     abc.abstractclassmethod
-#     def bellman_Ford(self):
-#         pass
-#     abc.abstractclassmethod
-#     def prim(self):
-#         pass
-#     abc.abstractclassmethod
-#     def Kruskal(self):
-#         pass
+
 
         
 # 1. Construya la clase Vertice.  Deje campos para el contenido y otras cosas exigidas por los algoritmos.
