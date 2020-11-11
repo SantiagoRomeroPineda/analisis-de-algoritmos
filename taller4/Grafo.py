@@ -1,3 +1,9 @@
+"""
+Made and modified by:
+    Santiago Romero
+    David Lopez
+"""
+
 import abc
 import math
 from abc import ABCMeta
@@ -107,7 +113,7 @@ class Graph:
                 min = distances[v] 
                 min_index = v 
         return min_index 
-   
+
 
     def dijkstra(self, src): 
         nVertices=len(self.vertices)
@@ -143,36 +149,22 @@ class Graph:
         return distances
 
     def printPrim(self, parent): 
-        print ("Edge \tWeight")
         for i in range(1, len(self.vertices)): 
-            print (parent[i]+1, "-", i+1, "\t", self.matrix[i][ parent[i] ] )
-
-    def minKey(self, key, mstSet): 
-        min = math.inf
-  
-        for v in range(len(self.vertices)): 
-            if key[v] < min and mstSet[v] == False: 
-                min = key[v] 
-                min_index = v 
-        return min_index 
-  
+            print (parent[i]+1, "->", i+1, "\t", self.matrix[i][ parent[i] ] )
 
     def prim(self): 
         nVertices=len(self.vertices)
-        key = [math.inf] * nVertices
+        distances = [math.inf] * nVertices
         parent = [None] * nVertices
-
-        key[0] = 0 
-        mstSet = [False] * nVertices
-  
+        distances[0] = 0 
+        marked = [False] * nVertices
         parent[0] = -1
-  
         for _ in range(nVertices): 
-            u = self.minKey(key, mstSet) 
-            mstSet[u] = True
+            u = self.minDistance(distances, marked) 
+            marked[u] = True
             for v in range(nVertices): 
-                if self.matrix[u][v] > 0 and mstSet[v] == False and key[v] > self.matrix[u][v]: 
-                        key[v] = self.matrix[u][v] 
+                if self.matrix[u][v] > 0 and not marked[v] and distances[v] > self.matrix[u][v]: 
+                        distances[v] = self.matrix[u][v] 
                         parent[v] = u 
         return parent
 
@@ -241,7 +233,6 @@ print(grafo.kruskal())
    
 
 
-        
 # 1. Construya la clase Vertice.  Deje campos para el contenido y otras cosas exigidas por los algoritmos.
 # 2. Construya la clase abstracta Grafo.  En esta clase deben aparecer los siguientes métodos:
 # 	- Vecinos de un vértice (abstracto).
@@ -261,4 +252,15 @@ print(grafo.kruskal())
 # 	- Ubicar 4 damas en un tablero de ajedrez de 4x4 ([Boh92], sección 7.1)
 # 	- Asignación de labores ([Boh92], ejercicio 7.6)
 # 	- Ejercicios 4.20, 4.21 y 5.26 de [Das08]
+
+
+
+
+"""
+References:
+    - www.programiz.com
+    - www.geeksforgeeks.org
+"""
+
+        
 
