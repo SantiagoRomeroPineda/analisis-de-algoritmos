@@ -1,12 +1,15 @@
 import abc
+import math
 from abc import ABCMeta
 from Vertice import Vertice
+
 
 class Graph:
     __metaclass__ = ABCMeta
     def __init__(self):
         self.vertices={}
         self.edges={}
+        self.matrix=[]
 
     def addVertex(self,v):
         if v.id in self.edges.keys():
@@ -19,7 +22,22 @@ class Graph:
         for i in self.vertices.keys():
             self.vertices[i].mark=False
 
-    def connection(self,v1,v2, weigth=0):
+    def connectionMatrix(self, v1,v2, weigth=1):
+        tam=max(v1,v2)
+        if len(self.matrix)<tam:
+            
+            val=len(self.matrix)
+            for i in range(len(self.matrix),tam):
+                self.matrix.append([0]*tam)
+            for i in range(0,val):
+                for j in range(val,tam):
+                    self.matrix[i].append(0)
+        
+        self.matrix[v1-1][v2-1]=weigth
+        self.matrix[v2-1][v1-1]=weigth
+
+    
+    def connection(self,v1,v2, weigth=1):
         if (v1 in self.edges.keys() and v2 in self.edges.keys() ):
             if  v2 in self.edges[v1].keys():
                 return False
@@ -27,8 +45,16 @@ class Graph:
                 return False
             self.edges[v1].update({v2:weigth})
             self.edges[v2].update({v1:weigth})
+            self.connectionMatrix(v1,v2,weigth)
             return True
         return False
+
+    def printMatrix(self):
+        for i in self.matrix:
+            for j in i:
+                print(j,end="\t")
+            print()
+        print()    
 
     def vertex_neighbours(self, v):
         return self.edges[v].keys()
@@ -45,7 +71,7 @@ class Graph:
             value=stack[-1]
             for i in self.edges[value].keys():
                 if not self.vertices[i].mark:
-                    print(value," -> ",i)
+                    print(value,"->",i,end=", ")
                     output.append(i)
                     stack.append(i)
                     break
@@ -65,13 +91,36 @@ class Graph:
                 if not i in queue:
                     if self.vertices[i].mark==False:
                         queue.append(i)
-                        print(value," -> ",i)
+                        print(value,"->",i,end=", ")
                         output.append(i)
         return output
 
+ 
 
-    def dijkstra(self):
-        pass
+    def minDistance(self, distances, sptSet): 
+        min = math.inf 
+        for v in range(len(self.vertices)): 
+            if distances[v] < min and sptSet[v] == False: 
+                min = distances[v] 
+                min_index = v 
+        return min_index 
+   
+
+    def dijkstra(self, src): 
+        nVertices=len(self.vertices)
+        distances = [math.inf] *  nVertices
+        distances[src] = 0
+        sptSet = [False] * nVertices
+   
+        for cout in range(nVertices): 
+            u = self.minDistance(distances, sptSet) 
+            sptSet[u] = True 
+            for v in range(nVertices): 
+                if self.matrix[u][v] > 0 and  sptSet[v] == False and distances[v] > distances[u] + self.matrix[u][v]: 
+                    distances[v] = distances[u] + self.matrix[u][v] 
+        return distances 
+
+
     def bellman_Ford(self):
         pass
     def prim(self):
@@ -84,7 +133,6 @@ class Graph:
 
     
         
-
 
             
 
@@ -106,6 +154,9 @@ print(grafo.edges)
 (grafo.edgeCost(1,2))
 print(grafo.DFS(2))
 print(grafo.BFS(2))
+grafo.printMatrix()
+grafo.dijkstra(2)
+
    
 
 
