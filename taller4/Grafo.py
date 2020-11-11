@@ -138,16 +138,47 @@ class Graph:
 
         for v1, v2, weigth in self.adjacency_list:  
                 if distances[v1-1] != math.inf and distances[v1-1] + weigth < distances[v2-1]:  
-                        print("Graph contains negative weight cycle") 
-                        return
+                        return False
                           
         return distances
 
+    def printPrim(self, parent): 
+        print ("Edge \tWeight")
+        for i in range(1, len(self.vertices)): 
+            print (parent[i]+1, "-", i+1, "\t", self.matrix[i][ parent[i] ] )
 
+    def minKey(self, key, mstSet): 
+  
+        # Initilaize min value 
+        min = math.inf
+  
+        for v in range(len(self.vertices)): 
+            if key[v] < min and mstSet[v] == False: 
+                min = key[v] 
+                min_index = v 
+        return min_index 
+  
+    # Function to construct and print MST for a graph  
+    # represented using adjacency matrix representation 
+    def prim(self): 
+        nVertices=len(self.vertices)
+        key = [math.inf] * nVertices
+        parent = [None] * nVertices
 
-
-    def prim(self):
-        pass
+        key[0] = 0 
+        mstSet = [False] * nVertices
+  
+        parent[0] = -1
+  
+        for _ in range(nVertices): 
+            u = self.minKey(key, mstSet) 
+            mstSet[u] = True
+            for v in range(nVertices): 
+                if self.matrix[u][v] > 0 and mstSet[v] == False and key[v] > self.matrix[u][v]: 
+                        key[v] = self.matrix[u][v] 
+                        parent[v] = u 
+  
+        return parent
     def Kruskal(self):
         pass
                 
@@ -179,7 +210,8 @@ print(grafo.DFS(2))
 print(grafo.BFS(2))
 grafo.printMatrix()
 print(grafo.dijkstra(2))
-grafo.bellmanFord(2)
+print(grafo.bellmanFord(2))
+grafo.printPrim(grafo.prim()) 
 
    
 
