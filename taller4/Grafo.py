@@ -97,10 +97,10 @@ class Graph:
 
  
 
-    def minDistance(self, distances, sptSet): 
+    def minDistance(self, distances, marked): 
         min = math.inf 
         for v in range(len(self.vertices)): 
-            if distances[v] < min and sptSet[v] == False: 
+            if distances[v] < min and not marked[v] : 
                 min = distances[v] 
                 min_index = v 
         return min_index 
@@ -109,17 +109,16 @@ class Graph:
     def dijkstra(self, src): 
         nVertices=len(self.vertices)
         distances = [math.inf] *  nVertices
-        distances[src] = 0
-        sptSet = [False] * nVertices
+        distances[src-1] = 0
+        marked = [False] * nVertices
    
-        for cout in range(nVertices): 
-            u = self.minDistance(distances, sptSet) 
-            sptSet[u] = True 
+        for i in range(nVertices): 
+            u = self.minDistance(distances, marked) 
+            marked[u] = True 
             for v in range(nVertices): 
-                if self.matrix[u][v] > 0 and  sptSet[v] == False and distances[v] > distances[u] + self.matrix[u][v]: 
+                if self.matrix[u][v] > 0 and not marked[v]  and distances[v] > distances[u] + self.matrix[u][v]: 
                     distances[v] = distances[u] + self.matrix[u][v] 
         return distances 
-
 
     def bellman_Ford(self):
         pass
@@ -155,7 +154,7 @@ print(grafo.edges)
 print(grafo.DFS(2))
 print(grafo.BFS(2))
 grafo.printMatrix()
-grafo.dijkstra(2)
+print(grafo.dijkstra(2))
 
    
 
