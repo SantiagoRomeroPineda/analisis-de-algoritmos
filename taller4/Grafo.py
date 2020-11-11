@@ -16,10 +16,13 @@ class Graph:
         return True
     
     def connection(self,v1,v2, weigth=0):
-        if (v1 in self.edges.keys() and v1 in self.edges.keys() ):
+        if (v1 in self.edges.keys() and v2 in self.edges.keys() ):
             if  v2 in self.edges[v1].keys():
                 return False
+            if v1 in self.edges[v2].keys():
+                return False
             self.edges[v1].update({v2:weigth})
+            self.edges[v2].update({v1:weigth})
             return True
         return False
 
@@ -29,13 +32,22 @@ class Graph:
     def edgeCost(self, v1, v2):
         return self.edges[v1].get(v2)
 
-    # def DFS(self, v):
-    #     for i in self.vertices.keys():
-    #         self.vertices[i].mark=False
-    #     stack = [v]
-        
-    #     while len(stack)!=0:
-    #         for i in 
+    def DFS(self, v):
+        for i in self.vertices.keys():
+            self.vertices[i].mark=False
+        stack = [v]        
+        while len(stack)!=0:
+            self.vertices[stack[-1]].mark=True
+            value=stack[-1]
+            for i in self.edges[value].keys():
+                if not self.vertices[i].mark:
+                    print(value," -> ",i)
+                    stack.append(i)
+                    break
+                else:
+                    stack.pop()
+                
+                    
 
 
     def busquedaAnchura(self):
@@ -66,11 +78,16 @@ vertice = Vertice(2,4)
 print(grafo.addVertex(vertice))
 vertice = Vertice(3,6)
 print(grafo.addVertex(vertice))
-print(grafo.connection(1,2,7))
-print(grafo.connection(1,3))
+vertice = Vertice(4,"pepe")
+(grafo.addVertex(vertice))
+(grafo.connection(1,2,7))
+(grafo.connection(1,3))
+(grafo.connection(2,4))
+
 print(grafo.edges)
-print(grafo.vertex_neighbours(1))
-print(grafo.edgeCost(1,2))
+(grafo.vertex_neighbours(1))
+(grafo.edgeCost(1,2))
+grafo.DFS(2)
 
 
 
