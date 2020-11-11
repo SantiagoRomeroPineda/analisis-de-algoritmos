@@ -3,7 +3,14 @@ Made and modified by:
     Santiago Romero
     David Lopez
 """
+"""
+Es valido aclarar que este grafo contiene por si solo los 3 grafos trabajados en clase
 
+ 	- Grafo con matriz de adyacencias.
+ 	- Grafo con lista de vecinos de cada vértice.
+ 	- Grafo con lista de aristas.
+
+"""
 import abc
 import math
 from abc import ABCMeta
@@ -120,7 +127,6 @@ class Graph:
         distances = [math.inf] *  nVertices
         distances[src-1] = 0
         marked = [False] * nVertices
-   
         for _ in range(nVertices): 
             u = self.minDistance(distances, marked) 
             marked[u] = True 
@@ -168,6 +174,9 @@ class Graph:
                         parent[v] = u 
         return parent
 
+
+
+#kruskal
     def find(self, parent, i):
         if parent[i] == i:
             return i
@@ -206,53 +215,29 @@ class Graph:
                 
             
 
-vertice = Vertice(1,12)
-grafo = Graph()
-print(grafo.addVertex(vertice))
-vertice = Vertice(2,4)
-print(grafo.addVertex(vertice))
-vertice = Vertice(3,6)
-print(grafo.addVertex(vertice))
-vertice = Vertice(4,"pepe")
-(grafo.addVertex(vertice))
-(grafo.connection(1,2,7))
-(grafo.connection(1,3))
-(grafo.connection(2,4))
+# vertice = Vertice(1,12)
+# grafo = Graph()
+# print(grafo.addVertex(vertice))
+# vertice = Vertice(2,4)
+# print(grafo.addVertex(vertice))
+# vertice = Vertice(3,6)
+# print(grafo.addVertex(vertice))
+# vertice = Vertice(4,"pepe")
+# (grafo.addVertex(vertice))
+# (grafo.connection(1,2,7))
+# (grafo.connection(1,3))
+# (grafo.connection(2,4))
 
-print(grafo.edges)
-(grafo.vertex_neighbours(1))
-(grafo.edgeCost(1,2))
-print(grafo.DFS(2))
-print(grafo.BFS(2))
-grafo.printMatrix()
-print(grafo.dijkstra(2))
-print(grafo.bellmanFord(2))
-grafo.printPrim(grafo.prim()) 
-print(grafo.kruskal())
-
-   
-
-
-# 1. Construya la clase Vertice.  Deje campos para el contenido y otras cosas exigidas por los algoritmos.
-# 2. Construya la clase abstracta Grafo.  En esta clase deben aparecer los siguientes métodos:
-# 	- Vecinos de un vértice (abstracto).
-# 	- Costo de una arista (abstracto).
-# 	- Búsqueda en profundidad.
-# 	- Búsqueda en anchura.
-# 	- Dijkstra.
-# 	- Bellman-Ford
-# 	- Prim
-# 	- Kruskal
-# Los métodos que no son abstractos deben ser agnósticos a la implementación particular del grafo.
-# 3. Construya las tres implementaciones del grafo en sendas clases que hereden de la clase Grafo del punto anterior.  Se deben construir:
-# 	- Grafo con matriz de adyacencias.
-# 	- Grafo con lista de vecinos de cada vértice.
-# 	- Grafo con lista de aristas.
-# 4. Construya soluciones a los siguientes problemas de aplicación.  La clase que resuelve cada problema debe heredar de alguna de las implementaciones del punto anterior:
-# 	- Ubicar 4 damas en un tablero de ajedrez de 4x4 ([Boh92], sección 7.1)
-# 	- Asignación de labores ([Boh92], ejercicio 7.6)
-# 	- Ejercicios 4.20, 4.21 y 5.26 de [Das08]
-
+# print(grafo.edges)
+# (grafo.vertex_neighbours(1))
+# (grafo.edgeCost(1,2))
+# print(grafo.DFS(2))
+# print(grafo.BFS(2))
+# grafo.printMatrix()
+# print(grafo.dijkstra(2))
+# print(grafo.bellmanFord(2))
+# grafo.printPrim(grafo.prim()) 
+# print(grafo.kruskal())
 
 
 
