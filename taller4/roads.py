@@ -16,7 +16,7 @@ grafo.connection(3,5,5)
 grafo.connection(3,4,2)
 
 
-roads=[[5,1,2],[2,5,1]]
+roads=[[1,5,2],[2,5,1]]
 minimo=[math.inf]
 for v1,v2,weigth in roads:
     aux=grafo.Roads(v1,v2,weigth)
