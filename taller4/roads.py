@@ -1,5 +1,6 @@
 """
-
+Ejercicio 4.20
+Dasgupta
 """
 import math
 from Vertice import Vertex

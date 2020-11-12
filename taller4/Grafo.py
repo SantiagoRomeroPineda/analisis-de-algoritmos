@@ -215,10 +215,11 @@ class Graph:
         return result
 
 
-    def taskAssignment(self,tasks):
+    def taskAssignment(self):
         queue=[]
         auxiliar=[]
-        workers=[i for i in range(1,1+(len(self.vertices))) ]
+        workers=[i for i in range(1,(1+len(self.vertices)//2)) ]
+        tasks=[i for i in range(len(self.vertices)//2,len(self.vertices))]
         counter=0
         minimum=0
         for i in range(len(workers)):
