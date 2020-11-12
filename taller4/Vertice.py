@@ -1,5 +1,5 @@
-class Vertice:
-    def __init__(self, id, valor):
+class Vertex:
+    def __init__(self, id, value=0):
         self.id = id
-        self.valor = valor
-        self.marca= False
+        self.value = value
+        self.mark= False

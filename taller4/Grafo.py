@@ -3,18 +3,10 @@ Made and modified by:
     Santiago Romero
     David Lopez
 """
-"""
-Es valido aclarar que este grafo contiene por si solo los 3 grafos trabajados en clase
-
- 	- Grafo con matriz de adyacencias.
- 	- Grafo con lista de vecinos de cada vértice.
- 	- Grafo con lista de aristas.
-
-"""
 import abc
 import math
 from abc import ABCMeta
-from Vertice import Vertice
+from Vertice import Vertex
 
 
 class Graph:
@@ -35,6 +27,7 @@ class Graph:
     def restartVertices(self):
         for i in self.vertices.keys():
             self.vertices[i].mark=False
+            
 
     def connectionMatrix(self, v1,v2, weigth=1):
         tam=max(v1,v2)
@@ -155,8 +148,16 @@ class Graph:
         return distances
 
     def printPrim(self, parent): 
+        vec=[]
         for i in range(1, len(self.vertices)): 
+            vec.append([parent[i]+1,i+1,self.matrix[i][ parent[i]]])
             print (parent[i]+1, "->", i+1, "\t", self.matrix[i][ parent[i] ] )
+        return vec
+    def getPrim(self, parent): 
+        vec=[]
+        for i in range(1, len(self.vertices)): 
+            vec.append([parent[i]+1,i+1,self.matrix[i][ parent[i]]])
+        return vec
 
     def prim(self): 
         nVertices=len(self.vertices)
@@ -212,17 +213,59 @@ class Graph:
                 result.append([u, v, w])
                 self.union(parent, rank, x, y)
         return result
+
+
+    def taskAssignment(self,tasks):
+        queue=[]
+        auxiliar=[]
+        workers=[i for i in range(1,1+(len(self.vertices))) ]
+        counter=0
+        minimum=0
+        for i in range(len(workers)):
+            valueT= workers[len(workers)-(i+1)]
+            for j in range(len(tasks)):
+                valueL = tasks[j]
+                counter+= valueL*valueT
+                auxiliar.append([self.vertices[len(workers)-j+1],self.vertices[len(workers)+valueL-1]])
+                valueT-=1
+            if minimum < counter:
+                minimum=counter
+                queue=auxiliar
+                while len(auxiliar)!=0:
+                    auxiliar.pop()
+            counter=0
+        print("mejor asignacion")
+        while len(queue)!=0:
+            a =queue[0]
+            l=a[0]
+            r=a[1]
+            self.connection(a[0],a[1],l*r)
+            
+
+    def Roads(self, v1,v2, weigth=1):
+        self.connectionMatrix(v1,v2,weigth)
+        print("rutas: ",v1," a ",v2)
+        vec=self.printPrim(self.prim()) 
+        self.matrix[v1-1][v2-1]=0
+        self.matrix[v2-1][v1-1]=0
+        sum=0
+        for i in vec:
+            sum+=i[2]
+        return sum
+
+            
+
                 
             
 
-# vertice = Vertice(1,12)
+# vertice = Vertex(1,12)
 # grafo = Graph()
 # print(grafo.addVertex(vertice))
-# vertice = Vertice(2,4)
+# vertice = Vertex(2,4)
 # print(grafo.addVertex(vertice))
-# vertice = Vertice(3,6)
+# vertice = Vertex(3,6)
 # print(grafo.addVertex(vertice))
-# vertice = Vertice(4,"pepe")
+# vertice = Vertex(4,"pepe")
 # (grafo.addVertex(vertice))
 # (grafo.connection(1,2,7))
 # (grafo.connection(1,3))
