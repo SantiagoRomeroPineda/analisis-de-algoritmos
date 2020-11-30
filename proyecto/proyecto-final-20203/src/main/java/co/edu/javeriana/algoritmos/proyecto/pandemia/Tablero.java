@@ -51,6 +51,7 @@ public class Tablero implements TableroI {
 		
 	}
 	
+	
 	@Override
 	public void eliminarCasillas(int y, int x, int color) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
