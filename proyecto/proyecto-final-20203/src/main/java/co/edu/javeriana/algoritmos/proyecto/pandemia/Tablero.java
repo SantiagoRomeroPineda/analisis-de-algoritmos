@@ -58,25 +58,17 @@ public class Tablero implements TableroI {
 		int [] moverX= {-1,0,0,1}; 
 		int [] moverY= {0,1,-1,0};
 		this.tablero[y][x]=0;
-		//System.out.println(color);
-		
 		for(int i =0;i<4;i++) {
 			boolean a=(x+moverX[i])!=getColumnas();
 			boolean b=(x+moverX[i])!=-1;
 			boolean c=(y+moverY[i])!=getFilas();
 			boolean d=(y+moverY[i])!=-1;
 			if(a && b && c && d) {
-				
-				
 				int ySig=y+moverY[i];
 				int xSig=x+moverX[i];
-				//System.out.println("y= " + ySig);
-				//System.out.println("x = " + xSig);
 				if(this.tablero[ySig][xSig]==color) {
 					this.eliminarCasillas(ySig, xSig,color);
 				}
-				
-				
 			}
 		}
 	}
@@ -89,11 +81,18 @@ public class Tablero implements TableroI {
 		
 		for (int j = 0; j < this.getColumnas(); j++){
 			int descuento=0;
+			boolean ya= false;
 			for(int i=this.getFilas()-1;i>=0;i--) {
 				this.tablero[i+descuento][j]=this.tablero[i][j];
-				if(this.tablero[i][j]==0) {
-					descuento++;
-				}
+				if(ya==false) {
+					if(this.tablero[i][j]==0) {
+						descuento++;
+						if(i-1>=0 && this.tablero[i-1][j]!=0 ) {
+							ya=true;
+						}
+					}
+				} 
+				
 				
 				if(i<= descuento-1) {
 					this.tablero[i][j]=0;
@@ -107,42 +106,69 @@ public class Tablero implements TableroI {
 
 	@Override
 	public void moverCasillasIzquierda() throws IllegalArgumentException {
-		int posiMover=this.getColumnas()+1;
-		int casillasAmover=0;
-		boolean vacias=false;
-		boolean llenas= false;
-		for(int i =this.getFilas()-1;i>=0;i--) {
-			for(int j=0;j<this.getColumnas();j++) {
-				if(i==this.getFilas()-1) {
-					if(this.tablero[i][j]==0) {
-						if (llenas==false) {
-							vacias =true;
-							casillasAmover++;
-						}
-						
-						if(j<posiMover) {
-							
-							posiMover=j;
-						}
-					}	
+		int cantidadMover=0;
+		int pos=0;
+		boolean entra=false;
+		boolean leyopos=false;
+		for(int i=1; i<this.getColumnas(); ++i) {
+			if(!entra) {
+				if(!leyopos) {
+					pos=i;
+					leyopos=true;
 				}
-				else {
-				
-					if (vacias==true) {
-						llenas =true;
+				if(this.tablero[this.getFilas()-1][i]==0) {
+					cantidadMover++;
+					if(i+1<this.getColumnas() && this.tablero[this.getFilas()-1][i+1]!=0 ) {
+						entra=true;
 					}
 				}
-				if(j>posiMover) {
-					//System.out.println("estooo: "+ (j-casillasAmover));
-					if(j-casillasAmover >0) {
-						this.tablero[i][j-casillasAmover]=this.tablero[i][j];
-						this.tablero[i][j]=0;
-					}
-					
+			}
+			
+		}
+		
+		for(int i=0;i<this.getFilas();i++) {
+			for(int j=pos;j<this.getColumnas()-1;j++) {
+				for(int k=0;k<cantidadMover;k++) {
+					this.tablero[i][j]=this.tablero[i][j+1];
 				}
 			}
 		}
-		
+//		int posiMover=this.getColumnas()+1;
+//		int casillasAmover=0;
+//		boolean vacias=false;
+//		boolean llenas= false;
+//		for(int i =this.getFilas()-1;i>=0;i--) {
+//			for(int j=0;j<this.getColumnas();j++) {
+//				if(i==this.getFilas()-1) {
+//					if(this.tablero[i][j]==0) {
+//						if (llenas==false) {
+//							vacias =true;
+//							casillasAmover++;
+//						}
+//						
+//						if(j<posiMover) {
+//							
+//							posiMover=j;
+//						}
+//					}	
+//				}
+//				else {
+//				
+//					if (vacias==true) {
+//						llenas =true;
+//					}
+//				}
+//				if(j>posiMover) {
+//					//System.out.println("estooo: "+ (j-casillasAmover));
+//					if(j-casillasAmover >0) {
+//						this.tablero[i][j-casillasAmover]=this.tablero[i][j];
+//						this.tablero[i][j]=0;
+//					}
+//					
+//				}
+//			}
+//		}
+//		
 		
 	}
 	
