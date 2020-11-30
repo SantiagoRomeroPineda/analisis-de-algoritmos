@@ -48,15 +48,11 @@ public class Jugador implements JugadorI {
 						int [] moverY= {0,1};
 						
 
-						//System.out.println();
-//						System.out.println("valor principal = "+ valorPrincipal);
-//						System.out.println("color casilla = "+ tablero.colorCasilla(i, j));
+
 						if (mapa.get(tablero.colorCasilla(i, j))[0]==-1) {
 							for(int k =0;k<2;k++) {
 								int ySig=i+moverY[k];
 								int xSig=j+moverX[k];
-//								System.out.println("i siguiente = "+ySig);
-//								System.out.println("j siguiente = "+xSig);
 								boolean a=(xSig)!=-1;
 								boolean b=(ySig)!=filas;
 								if( a && b) {
@@ -72,12 +68,10 @@ public class Jugador implements JugadorI {
 											jugadas.add(casilla);
 										}
 										else {
-												if(tablero.colorCasilla(i,j)!=0) {
-													System.out.println("agrega jugada no prioritaria: "+tablero.colorCasilla(i,j));
-													mapa.put(tablero.colorCasilla(i,j), new Integer[] {i, j});
-												}
-											
-											
+											if(tablero.colorCasilla(i,j)!=0) {
+												System.out.println("agrega jugada no prioritaria: "+tablero.colorCasilla(i,j));
+												mapa.put(tablero.colorCasilla(i,j), new Integer[] {i, j});
+											}
 										}
 									}
 									
@@ -90,24 +84,6 @@ public class Jugador implements JugadorI {
 			}
 
 			contador++;
-//			if(!realizaJugada){
-				
-//			}
-//			else {
-//				Set<Integer> keys = mapa.keySet();
-//				for (Iterator l = keys.iterator(); l.hasNext(); ) {
-//		          int key = (int) l.next();
-//		          System.out.println("llave "+key+ " coordenadas = "+mapa.get(key)[0]+ " "+ mapa.get(key)[1]);
-//		         
-//				}
-//				System.out.println();
-//				for(int i=0;i<principales.size();++i) {
-//					mapa.put(principales.get(i),  new Integer[] {-1, -1} );
-//					
-//				}
-//
-//				
-//			}
 			Set<Integer> keys = mapa.keySet();
 			for (Iterator l = keys.iterator(); l.hasNext(); ) {
 	          int key = (int) l.next();
@@ -131,7 +107,7 @@ public class Jugador implements JugadorI {
 				}
 				mapa.put(principales.get(i),  new Integer[] {-1, -1} );
 
-			}	
+			}
 			if(contador==100) {
 				break;
 			}
