@@ -99,7 +99,7 @@ public class Jugador implements JugadorI {
 				mapa.put(principales.get(i),  new Integer[] {-1, -1} );
 
 			}
-			if(contador==100) {
+			if(contador==1000) {
 				break;
 			}
 			if(!realizaJugada) {

@@ -106,33 +106,29 @@ public class Tablero implements TableroI {
 
 	@Override
 	public void moverCasillasIzquierda() throws IllegalArgumentException {
-		int cantidadMover=0;
-		int pos=0;
-		boolean entra=false;
-		boolean leyopos=false;
-		for(int i=1; i<this.getColumnas(); ++i) {
-			if(!entra) {
-				if(!leyopos) {
-					pos=i;
-					leyopos=true;
-				}
-				if(this.tablero[this.getFilas()-1][i]==0) {
-					cantidadMover++;
-					if(i+1<this.getColumnas() && this.tablero[this.getFilas()-1][i+1]!=0 ) {
-						entra=true;
+		int k=0;
+		int ultima=0;
+		for(k=0; k<this.getColumnas(); ++k) {
+			if(this.tablero[this.getFilas()-1][k]==0) {
+				System.out.println("hola");
+				for(int i=0;i<this.getFilas();i++) {
+					for(int j=k;j<this.getColumnas()-1;j++) {
+						this.tablero[i][j]=this.tablero[i][j+1];
 					}
 				}
+				for(int l=this.getColumnas()-1;this.tablero[this.getFilas()-1][l]==0;l--) {
+					if(l==k) {
+						return;
+					}
+				}
+				k=0;
+				
 			}
 			
+			
 		}
-		
-		for(int i=0;i<this.getFilas();i++) {
-			for(int j=pos;j<this.getColumnas()-1;j++) {
-				for(int k=0;k<cantidadMover;k++) {
-					this.tablero[i][j]=this.tablero[i][j+1];
-				}
-			}
-		}
+
+
 //		int posiMover=this.getColumnas()+1;
 //		int casillasAmover=0;
 //		boolean vacias=false;
