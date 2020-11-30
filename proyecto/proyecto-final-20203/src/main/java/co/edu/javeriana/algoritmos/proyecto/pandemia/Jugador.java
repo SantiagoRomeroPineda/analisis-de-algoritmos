@@ -47,13 +47,7 @@ public class Jugador implements JugadorI {
 						int [] moverX= {-1,0}; 
 						int [] moverY= {0,1};
 						
-						//Integer valorPrincipal = -1;
-						//Set<Integer> keys = mapa.keySet();
-//						for (Iterator l = keys.iterator(); l.hasNext(); ) {
-//				          int key = (int) l.next();
-//				          //System.out.println("llave "+key+ " coordenadas = "+mapa.get(key)[0]);
-//				          valorPrincipal=key; 
-//						}
+
 						//System.out.println();
 //						System.out.println("valor principal = "+ valorPrincipal);
 //						System.out.println("color casilla = "+ tablero.colorCasilla(i, j));
@@ -67,9 +61,8 @@ public class Jugador implements JugadorI {
 								boolean b=(ySig)!=filas;
 								if( a && b) {
 									if (tablero.colorCasilla(ySig, xSig)==tablero.colorCasilla(i, j)) {
-										if(principales.get(0)==tablero.colorCasilla(ySig, xSig)) {
-											System.out.println("valor principal = "+ principales.get(0));
-
+										if(principales.get(0)==tablero.colorCasilla(i, j)) {
+											System.out.println("valor prioritario = "+ principales.get(0));
 											System.out.println("realiza jugada");
 											System.out.println("fila: "+ casilla.getFila()+" columna: "+ casilla.getColumna());
 											System.out.println("color: "+tablero.colorCasilla(i, j) );
@@ -79,10 +72,11 @@ public class Jugador implements JugadorI {
 											jugadas.add(casilla);
 										}
 										else {
-											if(tablero.colorCasilla(i,j)!=0) {
-												System.out.println("jugada no prioritaria: "+tablero.colorCasilla(i,j));
-												mapa.put(tablero.colorCasilla(i,j), new Integer[] {i, j});
-											}
+												if(tablero.colorCasilla(i,j)!=0) {
+													System.out.println("agrega jugada no prioritaria: "+tablero.colorCasilla(i,j));
+													mapa.put(tablero.colorCasilla(i,j), new Integer[] {i, j});
+												}
+											
 											
 										}
 									}
@@ -96,17 +90,34 @@ public class Jugador implements JugadorI {
 			}
 
 			contador++;
-			if(!realizaJugada){
-				Set<Integer> keys = mapa.keySet();
-				for (Iterator l = keys.iterator(); l.hasNext(); ) {
-		          int key = (int) l.next();
-		          System.out.println("llave "+key+ " coordenadas = "+mapa.get(key)[0]+ " "+ mapa.get(key)[1]);
-		         
-				}
-				System.out.println();
-				for(int i=0;i<principales.size();++i) {
+//			if(!realizaJugada){
+				
+//			}
+//			else {
+//				Set<Integer> keys = mapa.keySet();
+//				for (Iterator l = keys.iterator(); l.hasNext(); ) {
+//		          int key = (int) l.next();
+//		          System.out.println("llave "+key+ " coordenadas = "+mapa.get(key)[0]+ " "+ mapa.get(key)[1]);
+//		         
+//				}
+//				System.out.println();
+//				for(int i=0;i<principales.size();++i) {
+//					mapa.put(principales.get(i),  new Integer[] {-1, -1} );
+//					
+//				}
+//
+//				
+//			}
+			Set<Integer> keys = mapa.keySet();
+			for (Iterator l = keys.iterator(); l.hasNext(); ) {
+	          int key = (int) l.next();
+	          System.out.println("llave "+key+ " coordenadas = "+mapa.get(key)[0]+ " "+ mapa.get(key)[1]);
+			}
+			System.out.println();
+			for(int i=0;i<principales.size();++i) {
+				if(!realizaJugada) {
 					if(mapa.get(principales.get(i))[0]!=-1 && (tablero.colorCasilla(mapa.get(principales.get(i))[0], mapa.get(principales.get(i))[1])!=0 )) {
-		            	System.out.println("realiza jugada");
+						System.out.println("realiza jugada");
 		            	System.out.println("el color del arreglo: "+principales.get(i));
 						System.out.println("fila: "+ mapa.get(principales.get(i))[0]+" columna: "+ mapa.get(principales.get(i))[1]);
 						System.out.println("color: "+tablero.colorCasilla(mapa.get(principales.get(i))[0], mapa.get(principales.get(i))[1]) );
@@ -116,29 +127,13 @@ public class Jugador implements JugadorI {
 		            	Casilla casilla= new Casilla(mapa.get(principales.get(i))[0],mapa.get(principales.get(i))[1]);
 		            	jugadas.add(casilla);
 					}
-					mapa.put(principales.get(i),  new Integer[] {-1, -1} );
+	            	
+				}
+				mapa.put(principales.get(i),  new Integer[] {-1, -1} );
 
-				}
-
-				
-					
-			}
-			else {
-				Set<Integer> keys = mapa.keySet();
-				for (Iterator l = keys.iterator(); l.hasNext(); ) {
-		          int key = (int) l.next();
-		          System.out.println("llave "+key+ " coordenadas = "+mapa.get(key)[0]+ " "+ mapa.get(key)[1]);
-		         
-				}
-				System.out.println();
-				for(int i=0;i<principales.size();++i) {
-					mapa.put(principales.get(i),  new Integer[] {-1, -1} );
-					
-				}
-
-				if(contador==20) {
-					break;
-				}
+			}	
+			if(contador==100) {
+				break;
 			}
 			if(!realizaJugada) {
 				seguirJugando=false;

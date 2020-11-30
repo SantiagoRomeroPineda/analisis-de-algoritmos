@@ -94,6 +94,7 @@ public class Tablero implements TableroI {
 				if(this.tablero[i][j]==0) {
 					descuento++;
 				}
+				
 				if(i<= descuento-1) {
 					this.tablero[i][j]=0;
 				}
