@@ -103,8 +103,10 @@ public class Tablero implements TableroI {
 	@Override
 	public void moverCasillasIzquierda() throws IllegalArgumentException {
 		int k=0;
+		int entra=0;
 		for(k=0; k<this.getColumnas(); ++k) {
 			if(this.tablero[this.getFilas()-1][k]==0) {
+				entra++;
 				for(int i=0;i<this.getFilas();i++) {
 					for(int j=k;j<this.getColumnas()-1;j++) {
 						this.tablero[i][j]=this.tablero[i][j+1];
@@ -118,9 +120,11 @@ public class Tablero implements TableroI {
 						break;
 					}
 				}
-
-				for(int l=0;l<this.getFilas();l++) {
-					this.tablero[l][this.getColumnas()-1]=0;
+				if(entra==1) {
+					for(int l=0;l<this.getFilas();l++) {
+						this.tablero[l][this.getColumnas()-1]=0;
+					}
+				
 				}
 				k=0;	
 			}
