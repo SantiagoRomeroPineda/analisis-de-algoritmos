@@ -43,9 +43,6 @@ public class Tablero implements TableroI {
 		}
 	}
 	
-	
-
-	
 	public int [][] getTablero() throws IllegalArgumentException {
 		return this.tablero;
 		
@@ -76,9 +73,7 @@ public class Tablero implements TableroI {
 	@Override
 	public boolean bajarCasillas() throws IllegalArgumentException {
 		// TODO Auto-generated method stub
-		boolean columnaVacia=false;
-		
-		
+		boolean columnaVacia=false;	
 		for (int j = 0; j < this.getColumnas(); j++){
 			int descuento=0;
 			boolean ya= false;
@@ -92,8 +87,6 @@ public class Tablero implements TableroI {
 						}
 					}
 				} 
-				
-				
 				if(i<= descuento-1) {
 					this.tablero[i][j]=0;
 				}
@@ -110,7 +103,6 @@ public class Tablero implements TableroI {
 		int ultima=0;
 		for(k=0; k<this.getColumnas(); ++k) {
 			if(this.tablero[this.getFilas()-1][k]==0) {
-				System.out.println("hola");
 				for(int i=0;i<this.getFilas();i++) {
 					for(int j=k;j<this.getColumnas()-1;j++) {
 						this.tablero[i][j]=this.tablero[i][j+1];
@@ -120,52 +112,13 @@ public class Tablero implements TableroI {
 					if(l==k) {
 						return;
 					}
+					if(this.tablero[this.getFilas()-1][l]!=0) {
+						break;
+					}
 				}
-				k=0;
-				
+				k=0;	
 			}
-			
-			
 		}
-
-
-//		int posiMover=this.getColumnas()+1;
-//		int casillasAmover=0;
-//		boolean vacias=false;
-//		boolean llenas= false;
-//		for(int i =this.getFilas()-1;i>=0;i--) {
-//			for(int j=0;j<this.getColumnas();j++) {
-//				if(i==this.getFilas()-1) {
-//					if(this.tablero[i][j]==0) {
-//						if (llenas==false) {
-//							vacias =true;
-//							casillasAmover++;
-//						}
-//						
-//						if(j<posiMover) {
-//							
-//							posiMover=j;
-//						}
-//					}	
-//				}
-//				else {
-//				
-//					if (vacias==true) {
-//						llenas =true;
-//					}
-//				}
-//				if(j>posiMover) {
-//					//System.out.println("estooo: "+ (j-casillasAmover));
-//					if(j-casillasAmover >0) {
-//						this.tablero[i][j-casillasAmover]=this.tablero[i][j];
-//						this.tablero[i][j]=0;
-//					}
-//					
-//				}
-//			}
-//		}
-//		
-		
 	}
 	
 	
