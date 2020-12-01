@@ -73,7 +73,10 @@ public class Tablero implements TableroI {
 	@Override
 	public boolean bajarCasillas() throws IllegalArgumentException {
 		// TODO Auto-generated method stub
+		
 		boolean columnaVacia=false;	
+		
+
 		for (int j = 0; j < this.getColumnas(); j++){
 			int descuento=0;
 			boolean ya= false;
@@ -100,7 +103,6 @@ public class Tablero implements TableroI {
 	@Override
 	public void moverCasillasIzquierda() throws IllegalArgumentException {
 		int k=0;
-		int ultima=0;
 		for(k=0; k<this.getColumnas(); ++k) {
 			if(this.tablero[this.getFilas()-1][k]==0) {
 				for(int i=0;i<this.getFilas();i++) {
@@ -115,6 +117,10 @@ public class Tablero implements TableroI {
 					if(this.tablero[this.getFilas()-1][l]!=0) {
 						break;
 					}
+				}
+
+				for(int l=0;l<this.getFilas();l++) {
+					this.tablero[l][this.getColumnas()-1]=0;
 				}
 				k=0;	
 			}
@@ -178,7 +184,7 @@ public class Tablero implements TableroI {
 	@Override
 	public int[][] coloresTablero() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.tablero;
 	}
 
 

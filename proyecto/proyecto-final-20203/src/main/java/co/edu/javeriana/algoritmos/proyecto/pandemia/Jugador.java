@@ -112,7 +112,7 @@ public class Jugador implements JugadorI {
 	@Override
 	public String identificacionJugador() {
 		// TODO Auto-generated method stub
-		return null;
+		return "Realizado por:\n  santiago Romero\n  Diego Bulla\n  David Ricardo";
 	}
 
 }

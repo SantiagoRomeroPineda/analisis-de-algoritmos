@@ -21,8 +21,6 @@ public interface TableroI extends Cloneable {
     int efectuarJugada( Casilla jugada ) throws IllegalArgumentException;
     void efectuarJugada( int i, int j ) throws IllegalArgumentException;
     
-    int [][] getTablero() throws IllegalArgumentException;
-    
     void eliminarCasillas(int y, int x, int color) throws IllegalArgumentException;
     boolean bajarCasillas() throws IllegalArgumentException;
     void moverCasillasIzquierda() throws IllegalArgumentException;
